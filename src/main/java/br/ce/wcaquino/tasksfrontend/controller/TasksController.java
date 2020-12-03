@@ -1,9 +1,6 @@
 package br.ce.wcaquino.tasksfrontend.controller;
 
-import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
+import br.ce.wcaquino.tasksfrontend.model.Todo;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,7 +9,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.client.RestTemplate;
 
-import br.ce.wcaquino.tasksfrontend.model.Todo;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Controller
 public class TasksController {
@@ -50,7 +49,7 @@ public class TasksController {
 			RestTemplate restTemplate = new RestTemplate();
 			restTemplate.postForObject(
 					getBackendURL() + "/tasks-backend/todo", todo, Object.class);			
-			model.addAttribute("success", "Success!");
+			model.addAttribute("success", "Success");
 			return "index";
 		} catch(Exception e) {
 			Pattern compile = Pattern.compile("message\":\"(.*)\",");
@@ -68,7 +67,7 @@ public class TasksController {
 	public String delete(@PathVariable Long id, Model model) {
 		RestTemplate restTemplate = new RestTemplate();
 		restTemplate.delete(getBackendURL() + "/tasks-backend/todo/" + id);			
-		model.addAttribute("success", "Success!");
+		model.addAttribute("success", "Success");
 		model.addAttribute("todos", getTodos());
 		return "index";
 	}
